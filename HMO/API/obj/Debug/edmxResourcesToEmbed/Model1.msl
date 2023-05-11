@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HMOModelStoreContainer" CdmEntityContainer="HMOEntities">
+    <EntitySetMapping Name="CoronaDetails">
+      <EntityTypeMapping TypeName="HMOModel.CoronaDetail">
+        <MappingFragment StoreEntitySet="CoronaDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Vaccination_1" ColumnName="Vaccination_1" />
+          <ScalarProperty Name="Vaccination_2" ColumnName="Vaccination_2" />
+          <ScalarProperty Name="Vaccination_3" ColumnName="Vaccination_3" />
+          <ScalarProperty Name="Vaccination_4" ColumnName="Vaccination_4" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Positive_result" ColumnName="Positive_result" />
+          <ScalarProperty Name="Recovery_date" ColumnName="Recovery_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="HMOModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Mobile_Phone" ColumnName="Mobile_Phone" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HMOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CoronaDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nchar" MaxLength="9" Nullable="false" />
+    <Property Name="Vaccination_1" Type="date" />
+    <Property Name="Vaccination_2" Type="date" />
+    <Property Name="Vaccination_3" Type="date" />
+    <Property Name="Vaccination_4" Type="date" />
+    <Property Name="Manufacturer" Type="nchar" MaxLength="20" />
+    <Property Name="Positive_result" Type="date" />
+    <Property Name="Recovery_date" Type="date" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" MaxLength="9" Nullable="false" />
+    <Property Name="First_Name" Type="nchar" MaxLength="10" />
+    <Property Name="Last_Name" Type="nchar" MaxLength="10" />
+    <Property Name="Address" Type="nchar" MaxLength="40" />
+    <Property Name="Birth_Date" Type="date" />
+    <Property Name="Phone" Type="nchar" MaxLength="9" />
+    <Property Name="Mobile_Phone" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_CoronaDetails_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CoronaDetails" Type="Self.CoronaDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoronaDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HMOModelStoreContainer">
+    <EntitySet Name="CoronaDetails" EntityType="Self.CoronaDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CoronaDetails_User" Association="Self.FK_CoronaDetails_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CoronaDetails" EntitySet="CoronaDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
