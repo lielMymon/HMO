@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HMOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CoronaDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="Vaccination_1" Type="date" />
+          <Property Name="Vaccination_2" Type="date" />
+          <Property Name="Vaccination_3" Type="date" />
+          <Property Name="Vaccination_4" Type="date" />
+          <Property Name="Manufacturer" Type="nchar" MaxLength="20" />
+          <Property Name="Positive_result" Type="date" />
+          <Property Name="Recovery_date" Type="date" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="First_Name" Type="nchar" MaxLength="10" />
+          <Property Name="Last_Name" Type="nchar" MaxLength="10" />
+          <Property Name="Address" Type="nchar" MaxLength="40" />
+          <Property Name="Birth_Date" Type="date" />
+          <Property Name="Phone" Type="nchar" MaxLength="9" />
+          <Property Name="Mobile_Phone" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_CoronaDetails_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CoronaDetails" Type="Self.CoronaDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CoronaDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMOModelStoreContainer">
+          <EntitySet Name="CoronaDetails" EntityType="Self.CoronaDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CoronaDetails_User" Association="Self.FK_CoronaDetails_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CoronaDetails" EntitySet="CoronaDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HMOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CoronaDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="9" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Vaccination_1" Type="DateTime" Precision="0" />
+          <Property Name="Vaccination_2" Type="DateTime" Precision="0" />
+          <Property Name="Vaccination_3" Type="DateTime" Precision="0" />
+          <Property Name="Vaccination_4" Type="DateTime" Precision="0" />
+          <Property Name="Manufacturer" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Positive_result" Type="DateTime" Precision="0" />
+          <Property Name="Recovery_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="HMOModel.FK_CoronaDetails_User" FromRole="CoronaDetail" ToRole="User" />
+        </EntityType>
+        <EntityContainer Name="HMOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CoronaDetails" EntityType="Self.CoronaDetail" />
+          <EntitySet Name="Users" EntityType="HMOModel.User" />
+          <AssociationSet Name="FK_CoronaDetails_User" Association="HMOModel.FK_CoronaDetails_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CoronaDetail" EntitySet="CoronaDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="true" />
+          <Property Name="First_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="Birth_Date" Type="DateTime" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="9" FixedLength="true" Unicode="true" />
+          <Property Name="Mobile_Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CoronaDetails" Relationship="HMOModel.FK_CoronaDetails_User" FromRole="User" ToRole="CoronaDetail" />
+        </EntityType>
+        <Association Name="FK_CoronaDetails_User">
+          <End Type="HMOModel.User" Role="User" Multiplicity="1" />
+          <End Type="HMOModel.CoronaDetail" Role="CoronaDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CoronaDetail">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HMOModelStoreContainer" CdmEntityContainer="HMOEntities">
+          <EntitySetMapping Name="CoronaDetails">
+            <EntityTypeMapping TypeName="HMOModel.CoronaDetail">
+              <MappingFragment StoreEntitySet="CoronaDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Vaccination_1" ColumnName="Vaccination_1" />
+                <ScalarProperty Name="Vaccination_2" ColumnName="Vaccination_2" />
+                <ScalarProperty Name="Vaccination_3" ColumnName="Vaccination_3" />
+                <ScalarProperty Name="Vaccination_4" ColumnName="Vaccination_4" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Positive_result" ColumnName="Positive_result" />
+                <ScalarProperty Name="Recovery_date" ColumnName="Recovery_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HMOModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Mobile_Phone" ColumnName="Mobile_Phone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
